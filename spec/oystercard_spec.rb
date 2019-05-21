@@ -31,7 +31,7 @@ describe Oystercard do
 
     describe '#touch_in' do
         it 'can touch in' do
-            subject.top_up(20)
+            described_class::MAXIMUM_BALANCE.times { subject.top_up(1)}
             subject.touch_in
             expect(subject).to be_in_journey
         end
@@ -43,7 +43,7 @@ describe Oystercard do
 
     describe '#touch_out' do
         it 'can touch out' do
-            subject.top_up(20)
+            described_class::MAXIMUM_BALANCE.times { subject.top_up(1)}
             subject.touch_in
             subject.touch_out
             expect(subject).not_to be_in_journey
