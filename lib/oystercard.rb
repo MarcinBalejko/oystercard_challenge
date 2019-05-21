@@ -25,6 +25,9 @@ class Oystercard
         deduct(MINIMUM_CHARGE)
         @in_journey = false
     end
+
+    private
+    
     def deduct(amount)
         @balance -= amount
     end
