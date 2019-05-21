@@ -49,5 +49,11 @@ describe Oystercard do
             expect(subject).not_to be_in_journey
         end
     end
+    
+    describe '#maximum_balance' do
+        it 'defaults maximum balance' do
+            expect(subject.maximum_balance).to eq Oystercard::MAXIMUM_BALANCE
+        end
+    end
 
 end
