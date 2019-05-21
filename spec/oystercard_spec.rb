@@ -30,8 +30,10 @@ describe Oystercard do
     end
 
     describe '#touch_in' do
-        it { is_expected.to respond_to(:touch_in) }
+        it 'can touch in' do
+            subject.touch_in
+            expect(subject).to be_in_journey
         end
-    
+    end
 
 end
