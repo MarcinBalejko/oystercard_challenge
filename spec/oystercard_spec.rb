@@ -44,6 +44,11 @@ describe Oystercard do
             subject.touch_out
             expect(subject).not_to be_in_journey
         end
+
+        it 'deducts' do 
+            subject.top_up Oystercard::MAXIMUM_BALANCE
+            expect { subject.touch_out }.to change{ subject.balance }.by(-1)
+        end
     end
     
     describe '#maximum_balance' do
