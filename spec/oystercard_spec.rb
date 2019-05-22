@@ -1,6 +1,5 @@
 require './lib/oystercard.rb'
 describe Oystercard do
-
     let(:station) { double :station }
 
     it 'balance equals 0' do
@@ -32,10 +31,20 @@ describe Oystercard do
         end
     end
 
+    describe '#minimum_balance' do 
+        it 'raises an error if the balance is below minimum' do
+            expect{ subject.touch_in(station) }.to raise_error 'Insufficient balance to touch in'
+        end
+    end
+
+    context 'when touched in' do
+        before do
+          subject.top_up Oystercard::MAXIMUM_BALANCE
+          subject.touch_in(station)
+        end
+
     describe '#touch_out' do
         it 'can touch out' do
-            subject.top_up Oystercard::MINIMUM_BALANCE
-            subject.touch_in(station)
             subject.touch_out(station)
             expect(subject).not_to be_in_journey
         end
@@ -43,26 +52,7 @@ describe Oystercard do
 
     describe '#deduct' do
         it 'deducts amount from the card' do 
-            subject.top_up Oystercard::MAXIMUM_BALANCE
             expect { subject.touch_out(station) }.to change{ subject.balance }.by(-Oystercard::MINIMUM_CHARGE)
-        end
-    end
-    
-    describe '#maximum_balance' do
-        it 'defaults maximum balance' do
-            expect(subject.maximum_balance).to eq Oystercard::MAXIMUM_BALANCE
-        end
-
-        it 'raises an error if the maximum balance is exceeded' do
-            maximum_balance = Oystercard::MAXIMUM_BALANCE
-            subject.top_up maximum_balance
-            expect{ subject.top_up 1 }.to raise_error "Maximum balance of #{maximum_balance} exceeded"
-        end
-    end
-
-    describe '#minimum_balance' do 
-        it 'raises an error if the balance is below minimum' do
-            expect{ subject.touch_in(station) }.to raise_error 'Insufficient balance to touch in'
         end
     end
 
@@ -70,14 +60,24 @@ describe Oystercard do
     let(:exit_station) { double :station }
 
         it 'stores the exit station' do
-            subject.top_up Oystercard::MAXIMUM_BALANCE
-            subject.touch_in(entry_station)
             subject.touch_out(exit_station)
             expect(subject.exit_station).to eq exit_station
         end
 
         it 'has an empty list of journeys by default' do
             expect(subject.list_of_journeys).to be_empty
+        end   
+    end
+
+    describe '#maximum_balance' do
+        it 'defaults maximum balance' do
+            expect(subject.maximum_balance).to eq Oystercard::MAXIMUM_BALANCE
         end
+
+        it 'raises an error if the maximum balance is exceeded' do
+            subject.top_up Oystercard::MAXIMUM_BALANCE
+            expect{ subject.top_up 1 }.to raise_error "Maximum balance of #{Oystercard::MAXIMUM_BALANCE} exceeded"
+        end
+    end
 
 end
