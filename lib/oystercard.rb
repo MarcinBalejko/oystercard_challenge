@@ -27,12 +27,16 @@ class Oystercard
     end
     def touch_out(exit)
         deduct(MINIMUM_CHARGE)
-        @exit_station = exit
-        @list_of_journeys[@entry_station] =  @exit_station
-        @entry_station = nil   
+        create_journey(exit)        
     end
 
     private
+
+    def create_journey(exit)
+        @exit_station = exit
+        @list_of_journeys[@entry_station] =  @exit_station
+        @entry_station = nil
+    end
     
     def deduct(amount)
         @balance -= amount
