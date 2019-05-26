@@ -9,8 +9,9 @@ class Oystercard
         @maximum_balance = maximum_balance
         @minimum_balance = minimum_balance
         @minimum_charge = minimum_charge
-        @entry_station = entry_station
-        @exit_station = exit_station
+        #@entry_station = entry_station
+        #@exit_station = exit_station
+        @current_journeys = []
         @list_of_journeys = {}
         @balance = 0
     end
@@ -19,18 +20,19 @@ class Oystercard
         @balance += amount
     end
     def in_journey?
-        @entry_station
+        @current_journeys
     end
     def touch_in(entry)
         fail 'Insufficient balance to touch in' if balance < MINIMUM_BALANCE
-        @entry_station = entry
+        @current_journeys << entry.to_s
+        #@entry_station = entry
     end
     def touch_out(exit)
         deduct(MINIMUM_CHARGE)
-        @exit_station = exit
-        @list_of_journeys[@entry_station] =  @exit_station
-        @entry_station = nil
-         
+        #@exit_station = exit
+        @current_journeys << exit.to_s
+        @list_of_journeys[@current_journeys] =  @list_of_journeys.count + 1
+        @current_journeys = []    
     end
 
     private
