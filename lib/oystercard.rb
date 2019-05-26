@@ -18,7 +18,7 @@ class Oystercard
         @balance += amount
     end
     def in_journey?
-        @current_journeys
+        @current_journeys[-1]
     end
     def touch_in(entry)
         fail 'Insufficient balance to touch in' if balance < MINIMUM_BALANCE
