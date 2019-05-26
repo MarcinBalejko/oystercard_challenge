@@ -27,7 +27,7 @@ describe Oystercard do
         it 'it stores the entry station' do
             subject.top_up Oystercard::MINIMUM_BALANCE
             subject.touch_in(station)
-            expect(subject.entry_station).to eq station
+            expect(subject.current_journeys[0]).to eq station.to_s
         end
     end
 
@@ -60,8 +60,9 @@ describe Oystercard do
     let(:exit_station) { double :station }
 
         it 'stores the exit station' do
+            subject.touch_in(entry_station)
             subject.touch_out(exit_station)
-            expect(subject.exit_station).to eq exit_station
+            expect(subject.list_of_journeys.keys[-1][-1]).to eq exit_station.to_s
         end
 
         it 'has an empty list of journeys by default' do

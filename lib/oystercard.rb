@@ -1,7 +1,7 @@
 require_relative 'station'
 class Oystercard
     attr_accessor :maximum_balance, :minimum_balance, :minimum_charge, :entry_station, :exit_station, :balance
-    attr_reader :list_of_journeys
+    attr_reader :list_of_journeys, :current_journeys
     MAXIMUM_BALANCE = 20
     MINIMUM_BALANCE = 1
     MINIMUM_CHARGE = 1
@@ -22,11 +22,11 @@ class Oystercard
     end
     def touch_in(entry)
         fail 'Insufficient balance to touch in' if balance < MINIMUM_BALANCE
-        @current_journeys << entry.to_s
+        @current_journeys << entry.to_s  #?
     end
     def touch_out(exit)
         deduct(MINIMUM_CHARGE)
-        @current_journeys << exit.to_s
+        @current_journeys << exit.to_s  #?
         @list_of_journeys[@current_journeys] =  @list_of_journeys.count + 1
         @current_journeys = []    
     end
