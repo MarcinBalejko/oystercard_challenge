@@ -28,7 +28,7 @@ class Oystercard
         deduct(MINIMUM_CHARGE)
         @current_journeys << exit
         @list_of_journeys[@current_journeys] =  @list_of_journeys.count + 1
-        @current_journeys = []     #? move to other method?
+        @current_journeys = []   
     end
 
     private
