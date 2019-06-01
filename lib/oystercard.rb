@@ -22,6 +22,10 @@ class Oystercard
         fail 'Insufficient balance to touch in' if balance < MINIMUM_BALANCE
         journey.start(entry)
     end
+    def touch_out(exit)
+        deduct(MINIMUM_CHARGE)
+        journey.finish(exit)
+    end
 
     private
 

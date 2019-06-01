@@ -1,7 +1,8 @@
 require './lib/journey.rb'
 describe Journey do
 
-    let(:station) {Station.new("The station", 1)}
+    let(:entry_station) { Station.new("Entry", 1) }
+    let(:exit_station) { Station.new("Exit", 1) }
 
     describe '#in_journey?' do
         it 'initially not in journey' do
@@ -16,8 +17,17 @@ describe Journey do
     end
 
     it 'stores the entry station' do
-        subject.start(station)
-        expect(subject.current_journeys[0]).to eq station
+        subject.start(entry_station)
+        expect(subject.current_journeys[0]).to eq entry_station
+    end
+
+    
+    it 'stores exit station' do
+        #entry_station = Station.new("st1", 1)
+        #exit_station = Station.new("st2", 1)
+        subject.start(entry_station)
+        subject.finish(exit_station)
+        expect(subject.list_of_journeys.keys[-1][-1]).to eq(exit_station)
     end
     
 end

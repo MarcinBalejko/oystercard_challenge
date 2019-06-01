@@ -17,12 +17,12 @@ class Journey
     def start(entry_station)
         @current_journeys << entry_station
     end
-    def touch_out(exit)
-        deduct(MINIMUM_CHARGE)   #card?
-        @current_journeys << exit
+    def finish(exit_station)
+        @current_journeys << exit_station
         @list_of_journeys[@current_journeys] =  @list_of_journeys.count + 1
-        @current_journeys = []   
+        @current_journeys = [] 
     end
+
     #def finish
     #end
     #def fare
