@@ -21,6 +21,12 @@ class Journey
         @current_journeys = [] 
     end
     
+    #private
+
+    #def deduct(amount)
+     #   @balance -= amount
+    #end
+
     #def finish
     #end
     #def fare
