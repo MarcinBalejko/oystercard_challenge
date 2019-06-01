@@ -4,7 +4,7 @@ class Journey
     attr_accessor :entry_station, :exit_station, :current_journeys, :list_of_journeys
     MINIMUM_CHARGE = 1
     def initialize(minimum_charge = MINIMUM_CHARGE)
-        @current_journeys = []
+        @current_journeys = []    #journeY
         @list_of_journeys = {}
         @entry_station = entry_station
         @exit_station = exit_station
@@ -20,16 +20,13 @@ class Journey
         @list_of_journeys[@current_journeys] =  @list_of_journeys.count + 1
         @current_journeys = [] 
     end
-    
-    #private
+    def complete?
+        return false if @current_journeys[1] == nil   
+    end
 
-    #def deduct(amount)
-     #   @balance -= amount
-    #end
+
 
     #def finish
-    #end
-    #def fare
     #end
     #def complete?
     #end
