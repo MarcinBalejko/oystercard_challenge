@@ -11,13 +11,11 @@ describe Journey do
 
     describe '#start' do
         it 'can be started' do
-            expect(subject).to respond_to(:start)
-            
+            expect(subject).to respond_to(:start)    
         end
     end
 
     it 'stores the entry station' do
-
         subject.start(station)
         expect(subject.current_journeys[0]).to eq station
     end

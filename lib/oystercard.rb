@@ -23,8 +23,6 @@ class Oystercard
         journey.start(entry)
     end
 
-
-
     private
 
     def deduct(amount)
