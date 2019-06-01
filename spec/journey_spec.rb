@@ -21,10 +21,7 @@ describe Journey do
         expect(subject.current_journeys[0]).to eq entry_station
     end
 
-    
     it 'stores exit station' do
-        #entry_station = Station.new("st1", 1)
-        #exit_station = Station.new("st2", 1)
         subject.start(entry_station)
         subject.finish(exit_station)
         expect(subject.list_of_journeys.keys[-1][-1]).to eq(exit_station)
