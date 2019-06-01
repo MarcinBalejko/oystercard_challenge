@@ -19,15 +19,6 @@ describe Oystercard do
             expect(subject).to be_in_journey
         end
     end
-
-
-
-
-        it 'it stores the entry station' do
-            subject.top_up Oystercard::MINIMUM_BALANCE
-            subject.touch_in(station)
-            expect(subject.current_journeys[0]).to eq station
-        end
    
 
     describe '#minimum_balance' do 
