@@ -47,13 +47,13 @@ describe Oystercard do
         end
     end
 
-    let(:entry_station) { double :station }
-    let(:exit_station) { double :station }
+    let(:entry_station) { Station.new("Entry", 1)}
+    let(:exit_station) { Station.new("Exit", 1) }
 
-        #it 'can touch out' do         #!
-           # subject.touch_in(entry_station)
-          #  expect(subject).to respond_to(:touch_out)
-       # end
+        it 'can touch out' do         #!
+            subject.touch_in(entry_station)
+            expect(subject).to respond_to(:touch_out)
+        end
 
         it 'has an empty list of journeys by default' do
             expect(subject.list_of_journeys).to be_empty
