@@ -53,10 +53,6 @@ describe Oystercard do
         it 'can touch out' do         #!
             subject.touch_in(entry_station)
             expect(subject).to respond_to(:touch_out)
-        end
-
-        it 'has an empty list of journeys by default' do
-            expect(subject.list_of_journeys).to be_empty
         end   
     end
 

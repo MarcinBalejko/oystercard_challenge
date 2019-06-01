@@ -26,5 +26,9 @@ describe Journey do
         subject.finish(exit_station)
         expect(subject.list_of_journeys.keys[-1][-1]).to eq(exit_station)
     end
+
+    it 'has an empty list of journeys by default' do
+        expect(subject.list_of_journeys).to be_empty
+    end  
     
 end
