@@ -12,7 +12,7 @@ describe Oystercard do
         end 
     end
 
-    describe '#touch_in' do        #tu zmienic duzo
+    describe '#touch_in' do
         it 'can touch in' do
             subject.top_up Oystercard::MINIMUM_BALANCE
             subject.touch_in(station)
@@ -33,13 +33,6 @@ describe Oystercard do
           subject.top_up Oystercard::MAXIMUM_BALANCE
           subject.touch_in(station)
         end
-
-    describe '#touch_out' do
-        it 'can touch out' do
-            subject.touch_out(station)
-            expect(subject).not_to be_in_journey
-        end
-    end
 
     describe '#deduct' do
         it 'deducts amount from the card' do 
