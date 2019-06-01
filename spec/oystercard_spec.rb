@@ -12,6 +12,14 @@ describe Oystercard do
         end 
     end
 
+    describe '#touch_in' do        #tu zmienic duzo
+        it 'can touch in' do
+            subject.top_up Oystercard::MINIMUM_BALANCE
+            subject.touch_in(station)
+            expect(subject).to be_in_journey
+        end
+    end
+
 
 
 
