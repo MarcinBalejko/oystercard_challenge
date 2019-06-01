@@ -7,11 +7,11 @@ describe Journey do
         end
     end
 
-    describe '#touch_in' do        #tu zmienic duzo
-        it 'can touch in' do
-            subject.top_up Oystercard::MINIMUM_BALANCE
-            subject.touch_in(station)
-            expect(subject).to be_in_journey
+    describe '#start' do
+        it 'can be started' do
+            station = Station.new("The station", 1)
+            subject.start(station)
+            expect(subject.current_journeys[0]).to eq(station)
         end
     end
     
