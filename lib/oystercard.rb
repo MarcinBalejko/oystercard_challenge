@@ -10,9 +10,9 @@ class Oystercard
         @maximum_balance = maximum_balance
         @minimum_balance = minimum_balance
         @minimum_charge = minimum_charge
+        @maximum_charge
         @balance = 0
-        @journey = journey
-        
+        @journey = journey   
     end
     def top_up(amount)
         fail "Maximum balance of #{MAXIMUM_BALANCE} exceeded" if amount + balance > MAXIMUM_BALANCE
@@ -22,10 +22,20 @@ class Oystercard
         fail 'Insufficient balance to touch in' if balance < MINIMUM_BALANCE
         journey.start(entry)
     end
-    def touch_out(exit)
-        deduct(MINIMUM_CHARGE)
+    def touch_out(exit)   
+        deduct_fare(fare) #here deduct changed for deduct_fare
         journey.finish(exit)
     end
+
+     def deduct_fare(fare)
+        @balance -= fare
+     end
+    def fare
+     return 6 if journey.current_journeys[0] == entry_station && journey.current_journeys[1]  == entry_station
+     return 6 if journey.current_journeys[0] == exit_station && journey.current_journeys[1]  == exit_station
+     MINIMUM_CHARGE
+    end
+    #
 
     private
 
