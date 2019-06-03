@@ -5,7 +5,8 @@ class Oystercard
     attr_reader :list_of_journeys, :current_journeys
     MAXIMUM_BALANCE = 20
     MINIMUM_BALANCE = 1
-    MINIMUM_CHARGE = 6
+    MINIMUM_CHARGE = 1
+    MAXIMUM_CHARGE = 6
     def initialize(maximum_balance = MAXIMUM_BALANCE, minimum_balance = MINIMUM_BALANCE,
         minimum_charge = MINIMUM_CHARGE, maximum_charge = MAXIMUM_CHARGE, journey=Journey.new)
         @maximum_balance = maximum_balance
@@ -32,8 +33,8 @@ class Oystercard
         @balance -= fare
      end
     def fare
-     return 6 if journey.current_journeys[0] == entry_station && journey.current_journeys[1]  == entry_station
-     return 6 if journey.current_journeys[0] == exit_station && journey.current_journeys[1]  == exit_station
+     return MAXIMUM_CHARGE if journey.current_journeys[0] == entry_station && journey.current_journeys[1]  == entry_station
+     return MAXIMUM_CHARGE if journey.current_journeys[0] == exit_station && journey.current_journeys[1]  == exit_station
      MINIMUM_CHARGE
     end
     #
