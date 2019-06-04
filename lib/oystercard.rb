@@ -2,7 +2,7 @@ require_relative 'station'
 require_relative 'journey'
 class Oystercard
     attr_accessor :maximum_balance, :minimum_balance, :minimum_charge, :balance, :journey
-    attr_reader :list_of_journeys, :current_journeys
+    attr_reader :list_of_journeys, :current_journeys, :extra_charge
     MAXIMUM_BALANCE = 20
     MINIMUM_BALANCE = 1
     MINIMUM_CHARGE = 1
@@ -13,8 +13,9 @@ class Oystercard
         @minimum_balance = minimum_balance
         @minimum_charge = minimum_charge
         @maximum_charge = maximum_charge
-        @balance = 0
-        @journey = journey   
+        @balance = 0   
+        @journey = journey
+        @extra_charge = false   
     end
     def top_up(amount)
         fail "Maximum balance of #{MAXIMUM_BALANCE} exceeded" if amount + balance > MAXIMUM_BALANCE
@@ -23,21 +24,31 @@ class Oystercard
     def touch_in(entry)
         fail 'Insufficient balance to touch in' if balance < MINIMUM_BALANCE
         journey.start(entry)
+        if journey.current_journeys.count > 1
+            @extra_charge = true
+        end            
     end
-    def touch_out(exit)   
-        deduct_fare(fare) #here deduct changed for deduct_fare
+    def touch_out(exit)
+        if @extra_charge == true
+            deduct(MAXIMUM_CHARGE)  
+        else
+            deduct(MINIMUM_CHARGE)
+        end  
         journey.finish(exit)
     end
 
-     def deduct_fare(fare)
-        @balance -= fare
-     end
-    def fare
-     return MAXIMUM_CHARGE if journey.current_journeys[0] == entry_station && journey.current_journeys[1]  == entry_station
-     return MAXIMUM_CHARGE if journey.current_journeys[0] == exit_station && journey.current_journeys[1]  == exit_station
-     MINIMUM_CHARGE
+    def extra_charge?
+        @extra_charge
     end
-    #
+
+    #def deduct_fare(fare)
+     #   @balance -= fare
+    #end
+    #def fare  #problems #flatten ?
+     #return MAXIMUM_CHARGE if journey.list_of_journeys.flatten[-2][0] == journey.entry_station && journey.list_of_journeys.flatten[-2][-1]  == journey.entry_station
+     #return MAXIMUM_CHARGE if journey.current_journeys[0] == journey.exit_station && journey.current_journeys[1]  == journey.exit_station
+     #MINIMUM_CHARGE
+    #end
 
     private
 
