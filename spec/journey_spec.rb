@@ -21,8 +21,6 @@ describe Journey do
         expect(subject.current_journeys[0]).to eq entry_station
     end
 
-    #can add context here
-
     it 'stores exit station' do
         subject.start(entry_station)
         subject.finish(exit_station)
@@ -33,16 +31,14 @@ describe Journey do
         expect(subject.list_of_journeys).to be_empty
     end
 
-    #describe '#fare' do 
-     #   it 'returns the minimum fare (for the moment)' do
-
-      #  end
-    #end
     describe '#complete?' do
         it 'returns false if the journey is not complete' do
             subject.start(entry_station)
             expect(subject.complete?).to eq(false)
         end
     end
+
+
+
 
 end

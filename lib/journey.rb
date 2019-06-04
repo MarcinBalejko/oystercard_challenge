@@ -21,16 +21,7 @@ class Journey
         @list_of_journeys[@current_journeys] =  @list_of_journeys.count + 1   
         @current_journeys = [] 
     end
-    def complete?   #?
+    def complete?   
         return false if @current_journeys[1] == nil  
     end
-
-    #def verify_journey
-     # whether no entry x2
-     # 
-    #end
-    #def finish
-    #end
-    #def complete?
-    #end
 end
