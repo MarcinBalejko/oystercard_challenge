@@ -24,9 +24,8 @@ class Oystercard
     def touch_in(entry)
         fail 'Insufficient balance to touch in' if balance < MINIMUM_BALANCE
         journey.start(entry)
-        if journey.current_journeys.count > 1
-            @extra_charge = true
-        end            
+        if journey.current_journeys.count > 1 then @extra_charge = true
+        end   
     end
     def touch_out(exit)
         if @extra_charge == true
@@ -36,19 +35,9 @@ class Oystercard
         end  
         journey.finish(exit)
     end
-
     def extra_charge?
         @extra_charge
     end
-
-    #def deduct_fare(fare)
-     #   @balance -= fare
-    #end
-    #def fare  #problems #flatten ?
-     #return MAXIMUM_CHARGE if journey.list_of_journeys.flatten[-2][0] == journey.entry_station && journey.list_of_journeys.flatten[-2][-1]  == journey.entry_station
-     #return MAXIMUM_CHARGE if journey.current_journeys[0] == journey.exit_station && journey.current_journeys[1]  == journey.exit_station
-     #MINIMUM_CHARGE
-    #end
 
     private
 
