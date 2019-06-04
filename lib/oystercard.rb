@@ -28,12 +28,8 @@ class Oystercard
         end   
     end
     def touch_out(exit)
-        if @extra_charge == true
-            deduct(MAXIMUM_CHARGE)  
-        else
-            deduct(MINIMUM_CHARGE)
-        end  
-        journey.finish(exit)
+         @extra_charge == true ? deduct(MAXIMUM_CHARGE) : deduct(MINIMUM_CHARGE)
+         journey.finish(exit)
     end
     def extra_charge?
         @extra_charge

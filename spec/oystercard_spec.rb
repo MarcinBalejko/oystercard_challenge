@@ -19,8 +19,6 @@ describe Oystercard do
             expect(subject.journey.current_journeys[0]).to eq(station)
         end
     end
-
-    #be in journey
    
     describe '#minimum_balance' do 
         it 'raises an error if the balance is below minimum' do
