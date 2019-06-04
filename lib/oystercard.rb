@@ -1,7 +1,7 @@
 require_relative 'station'
 require_relative 'journey'
 class Oystercard
-    attr_accessor :maximum_balance, :minimum_balance, :minimum_charge, :balance, :journey
+    attr_accessor :maximum_balance, :minimum_balance, :minimum_charge, :maximum_charge, :balance, :journey
     attr_reader :list_of_journeys, :current_journeys, :extra_charge
     MAXIMUM_BALANCE = 20
     MINIMUM_BALANCE = 1

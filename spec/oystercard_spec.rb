@@ -60,6 +60,12 @@ describe Oystercard do
         end
     end
 
+    describe '#maximum_charge' do
+        it 'defaults maximum charge' do
+            expect(subject.maximum_charge).to eq Oystercard::MAXIMUM_CHARGE
+        end
+    end
+
     context 'when passenger tries to cheat' do
         before do
             subject.top_up Oystercard::MAXIMUM_BALANCE
