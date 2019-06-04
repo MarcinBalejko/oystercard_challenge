@@ -60,4 +60,20 @@ describe Oystercard do
         end
     end
 
+    context 'when passenger tries to cheat' do
+        before do
+            subject.top_up Oystercard::MAXIMUM_BALANCE
+            subject.touch_in(entry_station)
+            subject.touch_in(entry_station)
+        end
+
+        let(:entry_station) { Station.new("Entry", 1)}
+        let(:exit_station) { Station.new("Exit", 1) }
+
+        it 'extra charge if passenger skips the gate' do
+            expect { subject.touch_out(exit_station) }.to change{ subject.balance }.by(-Oystercard::MAXIMUM_CHARGE)
+        end
+    end
+
+
 end
