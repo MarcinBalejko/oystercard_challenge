@@ -37,14 +37,14 @@ describe Oystercard do
     let(:entry_station) { Station.new("Entry", 1)}
     let(:exit_station) { Station.new("Exit", 1) }
 
-        it 'can touch out' do         #!
+        it 'can touch out' do         
             subject.touch_in(entry_station)
             expect(subject).to respond_to(:touch_out)
         end   
 
         describe '#deduct' do
-            it 'deducts amount from the card with minimum charge' do   #1!
-                expect { subject.touch_out(station) }.to change{ subject.balance }.by(fare)
+            it 'deducts amount from the card with minimum charge' do   
+                expect { subject.touch_out(station) }.to change{ subject.balance }.by(-Oystercard::MINIMUM_CHARGE)
             end
         end
     end
