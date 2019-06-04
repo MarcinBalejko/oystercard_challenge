@@ -18,17 +18,17 @@ class Journey
     def finish(exit_station)
         @exit_station = exit_station
         @current_journeys << exit_station
-        @list_of_journeys[@current_journeys] =  @list_of_journeys.count + 1   #!  #if more than 3 elements in one array(it would mean there was no touch out)
+        @list_of_journeys[@current_journeys] =  @list_of_journeys.count + 1   
         @current_journeys = [] 
     end
-    def complete?
-        return false if @current_journeys[1] == nil  # -1 
+    def complete?   #?
+        return false if @current_journeys[1] == nil  
     end
+
     #def verify_journey
      # whether no entry x2
      # 
     #end
-    
     #def finish
     #end
     #def complete?
