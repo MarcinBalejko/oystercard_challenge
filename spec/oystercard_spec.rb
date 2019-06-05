@@ -64,7 +64,13 @@ describe Oystercard do
         end
     end
 
-    context 'when passenger tries to cheat' do
+    describe '#penalty_fare' do
+        it 'penalty_fare is not included on the start' do
+            expect(subject.penalty_fare).to eq false
+        end
+    end 
+
+    context 'when user forgets to touch out' do
         before do
             subject.top_up Oystercard::MAXIMUM_BALANCE
             subject.touch_in(entry_station)

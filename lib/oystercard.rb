@@ -4,7 +4,7 @@ class Oystercard
     attr_accessor :maximum_balance, :minimum_balance, :minimum_charge, :maximum_charge, :balance, :journey
     attr_reader :list_of_journeys, :current_journeys, :penalty_fare
     MAXIMUM_BALANCE = 20
-    MINIMUM_BALANCE = 1
+    MINIMUM_BALANCE = 1                 
     MINIMUM_CHARGE = 1
     MAXIMUM_CHARGE = 6
     def initialize(maximum_balance = MAXIMUM_BALANCE, minimum_balance = MINIMUM_BALANCE,
@@ -24,8 +24,7 @@ class Oystercard
     def touch_in(entry)
         fail 'Insufficient balance to touch in' if balance < MINIMUM_BALANCE
         journey.start(entry)
-        if journey.current_journeys.count > 1 then @penalty_fare = true
-        end   
+        journey.current_journeys.count > 1 ? @penalty_fare = true : @penalty_fare = false  
     end
     def touch_out(exit)
          final_fare = journey.calculate_fare(exit)
