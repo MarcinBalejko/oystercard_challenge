@@ -74,7 +74,7 @@ describe Oystercard do
         let(:entry_station) { Station.new("Entry", 1)}
         let(:exit_station) { Station.new("Exit", 1) }
 
-        it 'extra charge if passenger skips the gate' do
+        it 'penalty fare if passenger skips the gate' do
             expect { subject.touch_out(exit_station) }.to change{ subject.balance }.by(-Oystercard::MAXIMUM_CHARGE)
         end
     end

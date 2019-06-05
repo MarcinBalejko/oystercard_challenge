@@ -2,7 +2,7 @@ require_relative 'station'
 require_relative 'journey'
 class Oystercard
     attr_accessor :maximum_balance, :minimum_balance, :minimum_charge, :maximum_charge, :balance, :journey
-    attr_reader :list_of_journeys, :current_journeys, :extra_charge
+    attr_reader :list_of_journeys, :current_journeys, :penalty_fare
     MAXIMUM_BALANCE = 20
     MINIMUM_BALANCE = 1
     MINIMUM_CHARGE = 1
@@ -15,7 +15,7 @@ class Oystercard
         @maximum_charge = maximum_charge
         @balance = 0   
         @journey = journey
-        @extra_charge = false   
+        @penalty_fare = false   
     end
     def top_up(amount)
         fail "Maximum balance of #{MAXIMUM_BALANCE} exceeded" if amount + balance > MAXIMUM_BALANCE
@@ -24,19 +24,18 @@ class Oystercard
     def touch_in(entry)
         fail 'Insufficient balance to touch in' if balance < MINIMUM_BALANCE
         journey.start(entry)
-        if journey.current_journeys.count > 1 then @extra_charge = true
+        if journey.current_journeys.count > 1 then @penalty_fare = true
         end   
     end
     def touch_out(exit)
          final_fare = journey.calculate_fare(exit)
-         @extra_charge == true ? deduct(MAXIMUM_CHARGE) : deduct(final_fare)   
+         @penalty_fare == true ? deduct(MAXIMUM_CHARGE) : deduct(final_fare)   
          journey.finish(exit)
-         @extra_charge = false
+         @penalty_fare = false
     end
-    def extra_charge?
-        @extra_charge
+    def penalty_fare?
+        @penalty_fare
     end
-
 
     private
 
