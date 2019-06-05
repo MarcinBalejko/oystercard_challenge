@@ -24,4 +24,11 @@ class Journey
     def complete?   
         return false if @current_journeys[1] == nil  
     end
+
+    def calculate_fare(exit_station)   #to journey?
+        station_one_value = entry_station.zone
+        station_two_value = exit_station.zone
+        fare_value = 1 + (station_two_value - station_one_value)
+        fare_value
+    end
 end
