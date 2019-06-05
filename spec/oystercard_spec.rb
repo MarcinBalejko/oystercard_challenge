@@ -29,16 +29,19 @@ describe Oystercard do
     context 'when touched in' do
         before do
           subject.top_up Oystercard::MAXIMUM_BALANCE
-          subject.touch_in(station)
+          subject.touch_in(entry_station)
         end
 
     let(:entry_station) { Station.new("Entry", 1)}
-    let(:exit_station) { Station.new("Exit", 1) }
+    let(:exit_station) { Station.new("Exit", 2) }
 
         it 'can touch out' do         
-            subject.touch_in(entry_station)
             expect(subject).to respond_to(:touch_out)
-        end   
+        end
+        
+        it 'it deducts calculated final fare' do
+            expect { subject.touch_out(exit_station) }.to change { subject.balance }.by(-2)
+        end
 
         describe '#deduct' do
             it 'deducts amount from the card with minimum charge' do   
@@ -84,6 +87,5 @@ describe Oystercard do
             expect { subject.touch_out(exit_station) }.to change{ subject.balance }.by(-Oystercard::MAXIMUM_CHARGE)
         end
     end
-
 
 end
