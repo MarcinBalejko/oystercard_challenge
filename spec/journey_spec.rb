@@ -2,7 +2,7 @@ require './lib/journey.rb'
 describe Journey do
 
     let(:entry_station) { Station.new("Entry", 1) }
-    let(:exit_station) { Station.new("Exit", 1) }
+    let(:exit_station) { Station.new("Exit", 2) }
 
     describe '#in_journey?' do
         it 'initially not in journey' do
@@ -35,6 +35,13 @@ describe Journey do
         it 'returns false if the journey is not complete' do
             subject.start(entry_station)
             expect(subject.complete?).to eq(false)
+        end
+    end
+
+    describe '#calculate_fare' do
+        it 'calculates the fare according to the zones' do
+            subject.start(entry_station)
+            expect(subject.calculate_fare(exit_station)).to eq(2)         
         end
     end
 
